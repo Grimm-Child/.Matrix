@@ -1,2 +1,1 @@
-# Matrix
-My personal dotfiles
+I break things. A lot. Between local web developement, virtual machines, and my habit of acting first, thinking later, I got really tired of setting up new OS installs. So I decided to make it easier on myself with this repository.
