@@ -1,7 +1,17 @@
+#!/usr/bin/env bash
+
+###########################################################################################################
+## ENV VARIABLES
+###########################################################################################################
+
 SHELL := /bin/bash
 DOTFILES_DIR := ~/.cys_dotfiles
 PATH := $(DOTFILES_DIR)/bin:$$HOME/.local:$(HOME)/.local/bin:${HOME}/.node_modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:${HOME}/bin:${HOME}/google-cloud-sdk/bin:$(PATH)
 NVM_DIR := $(HOME)/.nvm
+
+###########################################################################################################
+## HELP
+###########################################################################################################
 
 .DEFAULT_GOAL := help
 
@@ -9,29 +19,30 @@ NVM_DIR := $(HOME)/.nvm
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-update_linux: ## Run apt update + upgrade + autoremove
+###########################################################################################################
+## SET UP
+###########################################################################################################
+
+linux: ## Run apt update + upgrade + autoremove
 	sudo apt-get update && sudo apt-get upgrade -y
 	sudo apt-get dist-upgrade -f
 	sudo apt autoremove -y
 
 base: ## Installs base packages
-	sudo apt-get install -y autoconf automake bash core-utils curl \
-	exfat-utils file findutils gettext git git-all git-core grep iputils iproute2 licenses \
-	libtool make openvpn openssh-server openssl pkgconf postgresql-client-common \
-	postgresql postgresql-contrib postgresql-client python python3.8 python3-pip \
-	python-openssl sed screen systemd systemd-sysvcompat tmux tar ubuntu-wsl util-linux vim \
-	wget which yarn
+	sudo apt-get install -y autoconf automake bash curl exfat-utils file findutils gettext git git-all \
+	git-core grep iproute2 libtool make openvpn openssh-server openssl pkgconf postgresql-client-common \
+	postgresql postgresql-contrib postgresql-client python python3.8 python3-pip python-openssl sed screen \
+	systemd tmux tar ubuntu-wsl util-linux vim wget yarn
 
 dev: ## Installs dev packages
-	sudo apt-get install -y apache2 autoconf automake awscli build-essential direnv g++ gcc \
-	git-secrets keychain debootstrap oath-toolkit imagemagick llvm python3-venv tk pkgfile \
-	dconf-editor rsync nodejs npm xz-utils shellcheck bash-completion python-prompt_toolkit sshfs \
-	syncthing editorconfig-core-c man-db mkcert
+	sudo apt-get install -y apache2 autoconf automake awscli build-essential direnv g++ gcc git-secrets \
+	keychain debootstrap imagemagick llvm python3-venv tk dconf-editor rsync nodejs npm xz-utils libnode-dev \
+	shellcheck bash-completion sshfs syncthing man-db node-gyp
 
 libs: ## Installs library packages
 	sudo apt-get install -y libapache2-mod-wsgi libbz2-dev libexpat1-dev libffi-dev libgdbm-dev liblzma-dev libmysqlclient-dev \
 	libncurses5-dev libncursesw5-dev libpq-dev libpython2-dev libpython3-dev libreadline-dev \
-	libsqlite3-dev libssl-dev zlib1g-dev tcl-dev tk-dev gcc-libs
+	libsqlite3-dev libssl-dev zlib1g-dev tcl-dev tk-dev
 
 security: ## Installs security related packages
 	sudo apt-get install -y apt-transport-https ca-certificates linux-headers-generic \
@@ -39,6 +50,12 @@ security: ## Installs security related packages
 
 fun: ## Installs unnecessary things for my amusement
 	sudo apt-get install -y figlet fonts-powerline lolcat
+
+set_up_all: linux base dev libs security fun ## Runs all the initial setup
+
+###########################################################################################################
+## PYTHON / PIP
+###########################################################################################################
 
 pip: ## Installs the Python packages I use for basically everything
 	mkdir -p ${HOME}/.local
@@ -100,6 +117,29 @@ pip: ## Installs the Python packages I use for basically everything
 	pip install --user yapf
 	rm -fr get-pip.py
 
+django: ## Install Django
+	mkdir -p ${HOME}/src_code/github.com/grimm-child/Django;\
+	cd ${HOME}/src_code/github.com/grimm-child/Django;\
+	touch Pipfile;\
+	pipenv --python=3.8.6;\
+	pipenv install django;\
+	pipenv run django-admin startproject config .
+
+pipbackup: ## Backup Python packages
+	mkdir -p ${PWD}/cybuntu
+	pip freeze > ${PWD}/cybuntu/requirements.txt
+
+piprecover: ## Recover python packages
+	mkdir -p ${PWD}/cybuntu
+	pip install --user -r ${PWD}/cybuntu/requirements.txt
+
+pipupdate: ## Update python packages
+	pip list --user | cut -d" " -f 1 | tail -n +3 | xargs pip install -U --user
+
+###########################################################################################################
+## NPM / NVM
+###########################################################################################################
+
 npm: ## Actually installs NVM
 	if ! [ -d $(NVM_DIR)/.git ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
 	. $(NVM_DIR)/nvm.sh; nvm install --lts
@@ -108,7 +148,7 @@ packages: npm ## Installs NVM, if necessary, then installs packages
 	. $(NVM_DIR)/nvm.sh; npm install -g $(shell cat install/npmfile)
 
 node: ## Install node packages
-	sudo apt-get -S yarn
+	sudo apt-get -y yarn
 	mkdir -p ${HOME}/.node_modules
 	yarn global add babel-eslint
 	yarn global add bash-language-server
@@ -139,7 +179,18 @@ node: ## Install node packages
 	yarn global add parcel-bundler
 	yarn global add typescript-language-server
 	yarn global add webpack
-	
+
+npm_update: ## Update NPM
+	npm install npm -g
+	npm update -g
+
+nvm_clean: ## Clean the NVM cache
+	. "$NVM_DIR/nvm.sh"; nvm cache clear
+
+###########################################################################################################
+## SSH
+###########################################################################################################
+
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
 	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
@@ -156,6 +207,10 @@ localhost: # Set ssl for localhost
 	mkcert -install
 	mkcert localhost	
 
+###########################################################################################################
+## DOCKER
+###########################################################################################################
+
 docker: ## Docker initial setup
 	sudo apt-get install -y docker
 	sudo usermod -aG docker ${USER}
@@ -163,6 +218,14 @@ docker: ## Docker initial setup
 	ln -vsf ${PWD}/.docker/config.json ${HOME}/.docker/config.json
 	sudo systemctl enable docker.service
 	sudo systemctl start docker.service
+
+docker-compose: ## Set up docker-compose
+	sudo apt-get install -y docker-compose
+	gcloud components install docker-credential-gcr
+
+###########################################################################################################
+## POSTGRES
+###########################################################################################################
 
 postgresql: ## PostgreSQL initial setup
 	sudo apt-get install -y postgresql
@@ -178,20 +241,28 @@ pgcli: ## Init pgcli
 	test -L ${HOME}/.config/pgcli || rm -rf ${HOME}/.config/pgcli
 	ln -vsfn ${HOME}/backup/pgcli ${HOME}/.config/pgcli
 
+###########################################################################################################
+## GOOGLE CLOUD
+###########################################################################################################
+
 gcloud: ## Install google cloud SDK and setting
 	sudo apt-get install -y kubectl kubectx kustomize helm
 	curl https://sdk.cloud.google.com | bash
 	test -L ${HOME}/.config/gcloud || rm -rf ${HOME}/.config/gcloud
 	ln -vsfn ${HOME}/backup/gcloud   ${HOME}/.config/gcloud
 
-docker-compose: ## Set up docker-compose
-	sudo apt-get install -y docker-compose
-	gcloud components install docker-credential-gcr
+###########################################################################################################
+## GITHUB
+###########################################################################################################
 
 github: ## Install and setup github-cli
 	sudo apt-get install -y github-cli
 	test -L ${HOME}/.config/gh || rm -rf ${HOME}/.config/gh
 	ln -vsfn ${HOME}/backup/gh ${HOME}/.config/gh
+
+###########################################################################################################
+## AWS
+###########################################################################################################
 
 aws: ## Init aws cli
 	mkdir -p ${HOME}/.local
@@ -208,29 +279,18 @@ awsv2: ## Init aws cli version 2
 	rm -rf aws
 	pip install --user awslogs
 
+###########################################################################################################
+## TMUX
+###########################################################################################################
+
 tmuxp: ## Install tmuxp
 	mkdir -p ${HOME}/.local
 	pip install --user tmuxp
 	sudo ln -vsf ${PWD}/.config/main.yaml ${HOME}/.config/main.yaml
 
-django: ## Install Django
-	mkdir -p ${HOME}/src_code/github.com/grimm-child/Django;\
-	cd ${HOME}/src_code/github.com/grimm-child/Django;\
-	touch Pipfile;\
-	pipenv --python=3.8.6;\
-	pipenv install django;\
-	pipenv run django-admin startproject config .
-
-pipbackup: ## Backup Python packages
-	mkdir -p ${PWD}/cybuntu
-	pip freeze > ${PWD}/cybuntu/requirements.txt
-
-piprecover: ## Recover python packages
-	mkdir -p ${PWD}/cybuntu
-	pip install --user -r ${PWD}/cybuntu/requirements.txt
-
-pipupdate: ## Update python packages
-	pip list --user | cut -d" " -f 1 | tail -n +3 | xargs pip install -U --user
+###########################################################################################################
+## TESTS
+###########################################################################################################
 
 testbackup: ## Test this Makefile with mount backup directory
 	docker build -t dotfiles ${PWD}
@@ -261,6 +321,10 @@ testpath: ## Echo PATH
 test_nvm:
 	. $(NVM_DIR)/nvm.sh; bats test
 
+###########################################################################################################
+## SAVE
+###########################################################################################################
+
 save-dconf: ## Save dconf settings to .config/dconf/settings.dconf
 	dconf dump /org/gnome/ > ~/.config/dconf/settings.dconf
 
@@ -268,8 +332,3 @@ save-vsce: ## Save a list of VSC extensions to .config/Code/extensions.txt
 	ls .vscode/extensions/ > ~/.config/Code/extensions.txt
 
 save: save-dconf save-vsce ## Update dconf and vsc extensions files
-
-
-
-
-
