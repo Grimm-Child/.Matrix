@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Make default editor.
+export EDITOR='code-insiders';
+
+# Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY=~/.node_history;
+# Allow 32³ entries; the default is 1000.
+export NODE_REPL_HISTORY_SIZE='32768';
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy';
+
+# Enable colors
+export CLICOLOR=1
+
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+
+# Increase Bash history size. Allow 32³ entries; the default is 500.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+
+# Hide the “default interactive shell is now zsh” warning on macOS.
+export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+# Colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+export NVM_DIR="$HOME/.nvm"
+
+#
+######## Personal ENV Variables ########
+#
+export PROJECTS="/mnt/c/Dev"
+export CYRIINA="/home/xxcyxx"
+export CY="/mnt/c/Users/xxcyx"
