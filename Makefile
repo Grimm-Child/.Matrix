@@ -6,28 +6,28 @@
 
 SHELL := bash
 CURDIR := ${PWD}
-DOTFILES_DIR := ~/.Matrix/.dotfiles
+DOTFILES_DIR := ~/.Matrix/dotfiles
 TARGET = ~
 PATH := $(DOTFILES_DIR)/bin:${HOME}/.local:${HOME}/.local/bin:${HOME}/.node_modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:${HOME}/bin:${HOME}/google-cloud-sdk/bin:$(PATH)
 NVM_DIR := ${HOME}/.nvm
 
 symlinks = aliases \
-		   bash_profile \
+           bash_profile \
            bashrc \
-		   colors \
-		   curl \
+           colors \
+           curl \
            dircolors \
-		   editorconfig \
+           editorconfig \
            env \
            exports \
            gitconfig \
            gitignore \
+		   npmrc \
+           nvm \
            path \
            profile \
            prompt \
-           npmrc \
-           nvm \
-           ssh 
+           ssh
 
 ###########################################################################################################
 ## COLORS
@@ -49,15 +49,15 @@ ifneq (,$(findstring xterm,${TERM}))
 	WHITE        := $(shell tput -Txterm setaf 7)
 	RESET        := $(shell tput -Txterm sgr0)
 else
-	BLACK        := ""
-	RED          := ""
-	GREEN        := ""
-	YELLOW       := ""
-	PURPLE       := ""
-	PINK         := ""
-	BLUE         := ""
-	WHITE        := ""
-	RESET        := ""
+	BLACK        := "\033[38;5;232m"
+	RED          := "\033[1;38;5;9m"
+	GREEN        := "\033[38;5;10m"
+	YELLOW       := "\033[38;5;11m"
+	PURPLE       := "\033[38;5;93m"
+	PINK         := "\033[38;5;13m"
+	BLUE         := "\033[38;5;4m"
+	WHITE        := "\033[38;5;256m"
+	RESET        := "\e[0m"
 endif
 
 ###########################################################################################################
@@ -69,11 +69,11 @@ endif
 
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[99;1m%-20s\033[0m %s\n", $$1, $$2}'
-	
+
 ###########################################################################################################
 ## SET UP
 ###########################################################################################################
-.PHONY: set_up_linux set_up_base set_up_dev set_up_libs set_up_security set_up_fun set_up_all 
+.PHONY: set_up_linux set_up_base set_up_dev set_up_libs set_up_security set_up_fun set_up_all
 
 set_up_linux: ## Run apt update + upgrade + autoremove
 	@echo "${BLUE}Updating the package repositories 💻...${RESET}"
@@ -139,7 +139,7 @@ set_up_all: set_up_linux set_up_base set_up_dev set_up_libs set_up_security set_
 ###########################################################################################################
 ## DOTFILES
 ###########################################################################################################
-.PHONY: dotfiles_create dotfiles_install $(symlinks) 
+.PHONY: dotfiles_create dotfiles_install $(symlinks)
 
 dotfiles_create: ## Create all dotfiles
 	@echo "${BLUE}Creating symlinks to ✏️ dotfiles...${RESET}"
@@ -165,7 +165,7 @@ $(symlinks): ## Create symbolic link in home to dotfile
 		fi \
 	fi
 	ln -sn $(CURDIR)/$@ $(TARGET)/.$@
-	
+
 ###########################################################################################################
 ## PYTHON / PIP
 ###########################################################################################################
@@ -353,7 +353,7 @@ npm_update: ## Update NPM
 npm_clean: ## Clean the NVM cache
 	@echo "${BLUE}Cleaning up the 🟠 NVM cache...${RESET}"
 	@sleep 1
-	. "$NVM_DIR/nvm.sh"; nvm cache clear
+	. "$(NVM_DIR)/nvm.sh"; nvm cache clear
 	@echo "${BLUE}All clean...${RESET}"
 	@sleep 1
 
@@ -363,7 +363,7 @@ npm_clean: ## Clean the NVM cache
 .PHONY: ssh keyring localhost
 
 ssh: ## Init ssh
-	@echo "${BLUE}Creating 🔑 ssh directory...${RESET}"
+	@echo "${BLUE}Creating 🔑 the directory...${RESET}"
 	@sleep 1
 	mkdir -p ${HOME}/.ssh
 	@echo "${BLUE}Symlinking the 🔑 config...${RESET}"
@@ -392,11 +392,18 @@ keyring: ## Init gnome keyrings
 	@echo "${BLUE}Keyring is good to go...${RESET}"
 	@sleep 1
 
-localhost: # Set ssl for localhost
+localhost: ## Set ssl for localhost
 	@echo "${BLUE}Creating certs to localhost...${RESET}"
 	@sleep 1
+	sudo apt-get install -y build-essential curl file git libnss3-tools
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+	test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+	test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+	test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+	echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+	brew install mkcert nss
 	mkcert -install
-	mkcert localhost	
+	mkcert localhost
 	@echo "${BLUE}Done...${RESET}"
 	@sleep 1
 
@@ -408,18 +415,25 @@ localhost: # Set ssl for localhost
 docker: ## Docker initial setup
 	@echo "${BLUE}Installing 🐳 Docker...${RESET}"
 	@sleep 1
-	sudo apt-get install -y docker
+	sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository \
+		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+		$(lsb_release -cs) \
+		stable"
+	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+	sudo groupadd docker
 	sudo usermod -aG docker ${USER}
 	mkdir -p ${HOME}/.docker
 	ln -vsf ${PWD}/.docker/config.json ${HOME}/.docker/config.json
 	@echo "${BLUE}Starting 🐳 Docker...${RESET}"
 	@sleep 1
 	sudo systemctl enable docker.service
-	sudo systemctl start docker.service
+	sudo systemctl enable containerd.service
 	@echo "${BLUE}Docker is installed...${RESET}"
 	@sleep 1
 
-docker-compose: ## Set up docker-compose
+docker-compose: gcloud ## Set up docker-compose
 	@echo "${BLUE}Installing 🐳 Docker-compose...${RESET}"
 	@sleep 1
 	sudo apt-get install -y docker-compose
@@ -462,7 +476,6 @@ pgcli: ## Init pgcli
 gcloud: ## Install google cloud SDK and setting
 	@echo "${BLUE}Installing ☁️ Google cloud SDK...${RESET}"
 	@sleep 1
-	sudo apt-get install -y kubectl kubectx kustomize helm
 	curl https://sdk.cloud.google.com | bash
 	test -L ${HOME}/.config/gcloud || rm -rf ${HOME}/.config/gcloud
 	ln -vsfn ${HOME}/.Matrix/.backups/gcloud   ${HOME}/.config/gcloud
@@ -477,7 +490,10 @@ gcloud: ## Install google cloud SDK and setting
 github: ## Install and setup github-cli
 	@echo "${BLUE}Installing 🦊 Github...${RESET}"
 	@sleep 1
-	sudo apt-get install -y github-cli
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+	sudo apt-add-repository https://cli.github.com/packages
+	sudo apt update
+	sudo apt install gh
 	test -L ${HOME}/.config/gh || rm -rf ${HOME}/.config/gh
 	ln -vsfn ${HOME}/.Matrix/.backups/gh ${HOME}/.config/gh
 	@echo "${BLUE}Done...${RESET}"
