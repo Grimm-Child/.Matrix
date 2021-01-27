@@ -1,9 +1,9 @@
 # Postgres PSQL Cheat Sheet
-*Source: [https://github.com/chubin/cheat.sheets]*
+*Sources: [https://github.com/chubin/cheat.sheets], [https://github.com/Grimm-Child/.Matrix]*
 
 
 ## Shell
-#### #### Connect to a specific database
+#### Connect to a specific database
     \c database_name
 
 #### To quite the psql
@@ -75,6 +75,12 @@
 #### Alter user password
     ALTER ROLE <user_name> WITH PASSWORD '<password>';
 
+#### Assign roles to a user
+    ALTER USER <user_name> WITH <ROLE1> <ROLE2> <ROLE3>;
+
+#### Make a user a superuser
+    ALTER USER <user_name> WITH SUPERUSER;
+
 ## Tables
 #### Create a new table or a temporary table
     CREATE [TEMP] TABLE [IF NOT EXISTS] table_name(
@@ -108,6 +114,9 @@
 
 #### Drop a table and its dependent objects:
     DROP TABLE [IF EXISTS] table_name CASCADE;
+
+#### Change the owner of a table
+    ALTER TABLE table_name OWNER TO <user_name>;
 
 ## Roles
 #### Create a new role
@@ -150,6 +159,9 @@
 
 #### Delete a database permanently
     DROP DATABASE [IF EXISTS] db_name;
+
+#### Change the owner of a database
+    ALTER DATABASE "db_name" OWNER TO <user_name>;
 
 ## Views
 #### Create a view
