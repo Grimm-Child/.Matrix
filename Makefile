@@ -134,7 +134,15 @@ set_up_fun: ## Installs unnecessary things for my amusement
 	@echo "${BLUE}Fun stuff installed 💻...${RESET}"
 	@sleep 1
 
-set_up_all: set_up_linux set_up_base set_up_dev set_up_libs set_up_security set_up_fun ## Runs all the initial setup
+set_up_services: ## Sets services like Docker and Postgres to start automatically
+        @echo "${BLUE}Setting services to auto-start 💻...${RESET}"
+	@sleep 1
+	cp ./wsl/scripts/start_services.sh ~/.local/bin
+	chmod +x ~/.local/bin/start_services.sh
+	@echo "${BLUE}Script has been placed. Please run 'sudo visudo' and add '<username> ALL=(root) NOPASSWD: /home/<username>/.local/bin/start_services.sh' to the bottom....${RESET}"
+	@echo "${BLUE}Consult the 'read_me' file for the finishing steps on Windows... 💻...${RESET}"
+
+set_up_all: set_up_linux set_up_base set_up_dev set_up_libs set_up_security set_up_services set_up_fun ## Runs all the initial setup
 
 ###########################################################################################################
 ## DOTFILES
