@@ -19,7 +19,7 @@ psql
 #### ⭐ Create a user, grant `superuser` privledges to the new user
 ```
 CREATE USER <username> WITH PASSWORD '<password>';
-ALTER USER <user_name> WITH SUPERUSER;
+ALTER USER <username> WITH SUPERUSER;
 ```
 
 #### ⭐ Create the database
