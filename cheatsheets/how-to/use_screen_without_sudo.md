@@ -19,3 +19,4 @@ export SCREENDIR=$HOME/.screen
 ```
 
 *Notes:* You should probably also add the `export` statement above to your `~/.bashrc` Don't forget to `source` the file to apply your changes.
+
