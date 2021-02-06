@@ -14,7 +14,7 @@ mkdir ~/.screen && chmod 700 ~/.screen
 ```
 
 #### ⭐ Setting the `env` variable
-``
+```
 export SCREENDIR=$HOME/.screen
 ```
 
