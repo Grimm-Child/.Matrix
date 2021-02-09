@@ -170,6 +170,10 @@ ZSH:
 - [Bash 2 ZSH reference card](http://www.bash2zsh.com/zsh_refcard/refcard.pdf): Bash user's guide to ZSH
 - [ZSH Lovers](http://grml.org/zsh/zsh-lovers.html): Z Shell tips and tricks
 
+dotfiles:
+
+- [Pimp My dotfiles](https://dssg.github.io/hitchhikers-guide/curriculum/programming_best_practices/pimp-my-dotfiles/): Lots of useful information regarding dotfiles
+
 ###### License
 
 [MIT License](LICENSE) © [Cyriina Grimm](https://github.com/Grimm-Child/)
