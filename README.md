@@ -114,7 +114,7 @@ Items installed in the following scripts include:
 
 </div>
 
-#### Auto Install
+### Auto Install
 
 <details>
 <summary>If you like things easy, but possibly broken, start here</summary>
@@ -152,7 +152,7 @@ Items installed in the following scripts include:
 ```
 </details>
 
-#### Manual Installation
+### Manual Installation
 
 <details>
 <summary>Don't want to break things? Here is a safe place to start</summary>
