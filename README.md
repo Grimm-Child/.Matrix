@@ -18,6 +18,7 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 - [Auto Install](#auto-install)
 - [Auto Cleanup](#auto-cleanup)
 - [Manual Install](#manual-install)
+- [Xfce4 and xRDP](#xfce4-and-xrdp)
 - [Fonts](#fonts)
 - [Helpful Links](#helpful-links)
 - [License](#license)
@@ -150,6 +151,45 @@ Items installed in the following scripts include:
 #### Manual Installation
 
 - Open `scripts/setup-shell.bash` and `scripts/setup-devtools.bash` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
+
+### Xfce4 and xRDP
+
+<details>
+<summary>To access a Linux GUI from Windows with Xfce4 and xRDP, follow the instructions below</summary>
+
+#### Download and install Xfce4
+In a WSL terminal, run the following command:
+```bash
+sudo apt-get -y install xfce4 && sudo apt-get -y install xubuntu-desktop
+```
+This is going to take *awhile*. Patience is a virtue.
+
+#### Install the xRDP server
+
+Download and install xRDP with:
+```bash
+sudo apt-get -y install xrdp
+```
+
+#### Configure xRDP for xfce4 and restart
+
+```bash
+# configure
+echo xfce4-session > ~/.xsession
+
+# restart
+sudo service xrdp restart
+```
+
+#### Note the WSL IP address
+
+```bash
+ifconfig | grep inet
+```
+
+At this point, you should be able to open an RDP session from Windows 10. 
+Open up remote desktop connection window using `mstsc` and provide the WSL IP address found in the last step.
+</details>
 
 ###### Fonts
 
