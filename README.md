@@ -116,6 +116,9 @@ Items installed in the following scripts include:
 
 #### Auto Install
 
+<details>
+<summary>If you like things easy, but possibly broken, start here</summary>
+
 1. Clone the repository into the `sources` directory:
     ```shell
     cd ~ && git clone https://github.com/Grimm-Child/.Matrix ~/sources/dotfiles
@@ -147,10 +150,15 @@ Items installed in the following scripts include:
 ```shell
 ~/sources/dotfiles/scripts/cleanup.bash
 ```
+</details>
 
 #### Manual Installation
 
+<details>
+<summary>Don't want to break things? Here is a safe place to start</summary>
+
 - Open `scripts/setup-shell.bash` and `scripts/setup-devtools.bash` and copy/paste the commands you wish to use from top to bottom. I mean, that's the simplest way I can put it.
+</details>
 
 ### Xfce4 and xRDP
 
