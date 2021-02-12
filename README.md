@@ -201,6 +201,8 @@ Open up remote desktop connection window using `mstsc` and provide the WSL IP ad
 
 ###### Fonts
 
+<details>
+	<summary>Free, monospaced fonts</summary>
 - [Microsoft's Cascadia Code with Powerlines](https://github.com/microsoft/cascadia-code): mono, ligatures, free
 - [JetBrains Mono](https://www.jetbrains.com/lp/mono/#how-to-install): mono, ligatures, free
 - [Fira Code](https://github.com/tonsky/FiraCode): mono, ligatures, free
@@ -210,6 +212,8 @@ Open up remote desktop connection window using `mstsc` and provide the WSL IP ad
 - [Anonymous Pro](https://www.1001fonts.com/anonymous-pro-font.html): mono, ligatures, free
 - [Software Tester 7](https://www.1001fonts.com/software-tester-7-font.html): mono, free
 - [NovaMono](https://www.1001fonts.com/novamono-font.html): mono, ligatures, free
+
+</details>
 
 ###### Helpful Links
 
