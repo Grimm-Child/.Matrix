@@ -1,5 +1,9 @@
+# .Matrix - Grimm-Child's dotfiles
+
 <div align="center">
-    
+	
+![Throw table](resources/error_throw_table.png?raw=true "Throw table")
+	
 I break things. **A lot.** Between local web developement, virtual machines, and my habit of acting first, thinking later, I got *really* tired of setting up new OS installs. So I decided to make it easier on myself with this repository.
 
 🦇 **DISCLAIMER** 🦇
@@ -10,20 +14,16 @@ This is a very, very, very much work-in-progress thing. I've Frankenstein'd a bu
 
 ## Contents
 
-- [First Steps](#first-steps)
 - [Enable WSL](#enable-wsl)
 - (Optional) [Windows Terminal](#windows-terminal)
 - (Optional) [VSCode and WSL2](#vscode-and-wsl2)
 - [Ubuntu Scripts](#ubuntu-scripts)
 - [Auto Install](#auto-install)
-- [Auto Cleanup](#auto-cleanup)
 - [Manual Install](#manual-install)
 - [Xfce4 and xRDP](#xfce4-and-xrdp)
 - [Fonts](#fonts)
 - [Helpful Links](#helpful-links)
 - [License](#license)
-
-## First Steps
 
 I use Ubuntu | WSL2 running on Windows 10. Some of these scripts and options may not work out of the box for you. Sorry.
 
@@ -165,22 +165,17 @@ Items installed in the following scripts include:
 <details>
 <summary>To access a Linux GUI from Windows with Xfce4 and xRDP, follow the instructions below</summary>
 
-#### Download and install Xfce4
+#### Download and install Xfce4 and the xRDP server
 In a WSL terminal, run the following command:
 ```bash
+# This is going to take *awhile*. Patience is a virtue.
 sudo apt-get -y install xfce4 && sudo apt-get -y install xubuntu-desktop
-```
-This is going to take *awhile*. Patience is a virtue.
 
-#### Install the xRDP server
-
-Download and install xRDP with:
-```bash
+# xRDP
 sudo apt-get -y install xrdp
 ```
 
 #### Configure xRDP for xfce4 and restart
-
 ```bash
 # configure
 echo xfce4-session > ~/.xsession
@@ -190,13 +185,16 @@ sudo service xrdp restart
 ```
 
 #### Note the WSL IP address
-
 ```bash
 ifconfig | grep inet
 ```
 
 At this point, you should be able to open an RDP session from Windows 10. 
-Open up remote desktop connection window using `mstsc` and provide the WSL IP address found in the last step.
+- Open a `cmd` prompt and run `mstsc`
+- Provide the WSL IP address
+- (Optional) Provide your login info
+- Connect the remote desktop
+
 </details>
 
 ###### Fonts
