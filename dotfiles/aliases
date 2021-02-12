@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 
 # Shortcuts
-
 alias reload="source ~/.bash_profile"
 alias _="sudo"
 
 # List declared aliases, functions, paths
-
 alias aliases="alias | sed 's/=.*//'"
 alias functions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'"
 alias paths='echo -e ${PATH//:/\\n}'
 
 # Directory listing/traversal
-
 LS_COLORS=$(is-supported "ls --color" --color -G)
 LS_TIMESTYLEISO=$(is-supported "ls --time-style=long-iso" --time-style=long-iso)
 LS_GROUPDIRSFIRST=$(is-supported "ls --group-directories-first" --group-directories-first)
@@ -33,7 +30,6 @@ alias -- -="cd -"                  # Go to previous dir with -
 alias cd.='cd $(readlink -f .)'    # Go to real dir (i.e. if current dir is linked)
 
 # NPM
-
 alias ni="npm install"
 alias nu="npm uninstall"
 alias nup="npm update"
@@ -41,7 +37,6 @@ alias nri="rm -r node_modules && npm install"
 alias ncd="npm-check -su"
 
 # Network
-
 alias ip="curl -s ipinfo.io | jq -r '.ip'"
 alias ipl="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
