@@ -1,19 +1,39 @@
 # Markdown Cheat Sheet
-# Source: https://github.com/cheat/cheatsheets
+*Source: [Grimm-Child](https://github.com/Grimm-Child/.Matrix)*
+______
 
-# headers
+# Headers
+```
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
 h1 header
 =========
 h2 header
 ---------
+```
 
-# blockquotes
+# Text
+```
+*Italicized text* | _Italicized text_
+**Bold text**     | __Bold text__
+~~Strikethrough~~
+```
+
+# Blockquotes
+```
 > first level and paragraph
 >> second level and first paragraph
 >
 > first level and second paragraph
+```
 
-# lists
+# Lists
+```
 ## unordered - use *, +, or -
         * Red
         * Green
@@ -23,25 +43,79 @@ h2 header
         1. First
         2. Second
         3. Third
+## nested - 4 spaces
+		- Level 1
+		    - Level 2
+			    - Level 3
+				    - Level 4
+					    - Level 5
+						    - Level 6
+```
 
-# code - use 4 spaces/1 tab
+# Code
+````
+## use 4 spaces/1 tab
 regular text
         code code code
-or:
+## or:
 Use the `printf()` function
+## or:
+    ```
+	blockfence
+	```
+## inline code:
+    This is a regular sentance with `code` inline.
+```
 
-# hr's - three or more of the following
+# HR's
+```
+## three or more of the following
 ***
 ---
 ___
+```
 
-# links
+# Links
+```
 This is [an example](http://example.com "Title") inline link.
+```
 
-# image
+# Images
+```
 ![Alt Text](/path/to/file.png)
+```
 
-# formatting
-*em* _em_
-**strong** __strong__
-~~strikethrough~~
+# Tables
+```
+| Syntax | Description |
+| ----------- | ----------- |
+| Header | Title |
+| Paragraph | Text |
+```
+
+# Footnotes
+```
+ 	Here's a sentence with a footnote. [^1]
+
+[^1]: This is the footnote.
+```
+
+# Heading IDs
+```
+ 	### My Great Heading {#custom-id}
+```
+
+# Definition lists
+```
+term
+: definition
+term
+: definition
+```
+
+# Task lists
+```
+- [x] Make a list
+- [ ] Add things to list
+- [ ] Profit?
+```
