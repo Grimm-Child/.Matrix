@@ -2,19 +2,6 @@
 *Source: [Grimm-Child](https://github.com/Grimm-Child/.Matrix)*
 
 # Headers
-Examples:
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
-
-h1 header
-=========
-h2 header
----------
-
 Code:
 ```
 # H1
@@ -29,19 +16,33 @@ h1 header
 h2 header
 ---------
 ```
-
-# Text
 Examples:
-*Italicized text* | _Italicized text_
-**Bold text**     | __Bold text__
-~~Strikethrough~~
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
 
+h1 header
+=========
+h2 header
+---------
+
+# Formatting
 Code:
 ```
-*Italicized text* | _Italicized text_
-**Bold text**     | __Bold text__
-~~Strikethrough~~
+Emphasis, aka italics, with *asterisks* or _underscores_.  
+Strong emphasis, aka bold, with **asterisks** or __underscores__.  
+Combined emphasis with **asterisks and _underscores_**.  
+Strikethrough uses two tildes. ~~Scratch this.~~ 
 ```
+
+Examples:  
+Emphasis, aka italics, with *asterisks* or _underscores_.  
+Strong emphasis, aka bold, with **asterisks** or __underscores__.  
+Combined emphasis with **asterisks and _underscores_**.  
+Strikethrough uses two tildes. ~~Scratch this.~~  
 
 # Blockquotes
 Examples:
@@ -70,12 +71,12 @@ Examples:
   2. Second
   3. Third
 ## nested - 4 spaces
-    - Level 1
-        - Level 2
-            - Level 3
-                - Level 4
-                    - Level 5
-                        - Level 6
+- Level 1
+    - Level 2
+        - Level 3
+            - Level 4
+                - Level 5
+                    - Level 6
 
 Code:
 ```
@@ -97,11 +98,48 @@ Code:
                         - Level 6
 ```
 
-# Code
+
+# Paragraphs
+Code:
+```
+Spaces are used at the beginning or end of sentences. In this example, leading and trailing spaces are shown with with dots: ⋅
+
+⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
+
+⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+```
+
 Examples:
+Spaces are used at the beginning or end of sentences. In this example, leading and trailing spaces are shown with with dots: ⋅
+
+   You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
+
+   To have a line break without a paragraph, you will need to use two trailing spaces.  
+   Note that this line is separate, but within the same paragraph.  
+   (This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+
+# Code
+Code:
+```
 ## use 4 spaces/1 tab
 regular text
         code code code
+## or:
+Use the `printf()` function
+## or:
+```blockfence```
+
+## inline code:
+This is a regular sentance with `code` inline.
+```
+
+Examples:
+## use 4 spaces/1 tab
+regular text
+
+    code code code
 
 ## or:
 Use the `printf()` function
@@ -113,27 +151,7 @@ code code code
 ## inline code
 This is a regular sentance with `code` inline.
 
-Code:
-```
-## use 4 spaces/1 tab
-regular text
-        code code code
-## or:
-Use the `printf()` function
-## or:
-```
-blockfence
-```
-## inline code:
-This is a regular sentance with `code` inline.
-```
-
 # HR's
-Examples:
-***
----
-___
-
 Code:
 ```
 ## three or more of the following
@@ -142,14 +160,56 @@ Code:
 ___
 ```
 
-# Links
 Examples:
-This is [an example](http://example.com "Title") inline link.
+***
+---
+___
 
+
+# Links
 Code:
 ```
 This is [an example](http://example.com "Title") inline link.
+
+[I'm a reference-style link][Arbitrary case-insensitive reference text]
+
+[I'm a relative reference to a repository file](../blob/master/LICENSE)
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+URLs and URLs in angle brackets will automatically get turned into links. 
+http://www.example.com or <http://www.example.com> and sometimes 
+example.com (but not on Github, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com
 ```
+
+Examples:
+This is [an example](http://example.com "Title") inline link.
+
+[I'm a reference-style link][Arbitrary case-insensitive reference text]
+
+[I'm a relative reference to a repository file](../blob/master/LICENSE)
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+URLs and URLs in angle brackets will automatically get turned into links. 
+http://www.example.com or <http://www.example.com> and sometimes 
+example.com (but not on Github, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com
 
 # Images
 ```
@@ -157,19 +217,19 @@ This is [an example](http://example.com "Title") inline link.
 ```
 
 # Tables
-Examples:
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
+Tables are supported by using pipe (|) separators between columns and colons (:) for justification.
 Code:
 ```
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| Tables   | Look   | Like this |
+| -------- | -----  | --------- |
+| Left     | right: | :center:  |
 ```
+
+Examples:
+| Tables   | Look   | Like this |
+| -------- | -----  | --------- |
+| Left     | right: | :center:  |
+
 
 # Footnotes
 Examples:
@@ -214,3 +274,16 @@ term
 - [ ] Add things to list
 - [ ] Profit?
 ```
+
+Use the backslash character \ to escape Markdown syntax characters. 
+You can escape the following characters: 
+Asterisk \* 
+Underscore \_ 
+Curly braces \{ \} 
+Square brackets \[ \] 
+Brackets \( \) 
+Hash \# 
+Plus \+ 
+Minus \- 
+Period \. 
+Exclamation point \!
