@@ -128,6 +128,7 @@ regular text
         code code code
 ## or:
 Use the `printf()` function
+
 ## or:
 ```blockfence```
 
@@ -148,6 +149,7 @@ Use the `printf()` function
 ```
 code code code
 ```
+
 ## inline code
 This is a regular sentance with `code` inline.
 
@@ -164,7 +166,6 @@ Examples:
 ***
 ---
 ___
-
 
 # Links
 Code:
@@ -260,12 +261,28 @@ term
 term
 : definition
 
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+
 Code:
 ```
 term
 : definition
 term
 : definition
+
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
 ```
 
 # Task lists
