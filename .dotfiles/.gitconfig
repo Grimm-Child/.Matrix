@@ -28,11 +28,14 @@
 [user]
     name = "Cyriina Grimm"
     email = "xxgrimmchildxx@gmail.com"
-    #signingkey = **Your GPG ID**
+
+#---------------------------------------------------------------------------------------------
 
 [branch "master"]
     remote = origin
     merge = refs/heads/master
+
+#---------------------------------------------------------------------------------------------
 
 [color]
     branch = always
@@ -65,6 +68,8 @@
     untracked = cyan
     branch = magenta
 
+#---------------------------------------------------------------------------------------------
+
 [core]
     pager = less -FRSX
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -74,6 +79,11 @@
 
 [difftool]
     prompt = false
+
+[push]
+    default = matching
+
+#---------------------------------------------------------------------------------------------
 
 [alias]
     # log
@@ -88,9 +98,6 @@
 
     lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-
-[push]
-    default = matching
 
 [url "git@github.com:"]
     insteadof = github:
