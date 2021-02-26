@@ -1,6 +1,29 @@
 #!/bin/bash
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#---------------------------------------------------------------------------------------------
+#
+#       /$$      /$$             /$$               /$$          
+#      | $$$    /$$$            | $$              |__/          
+#      | $$$$  /$$$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$ /$$   /$$
+#      | $$ $$/$$ $$ |____  $$|_  $$_/   /$$__  $$| $$|  $$ /$$/
+#      | $$  $$$| $$  /$$$$$$$  | $$    | $$  \__/| $$ \  $$$$/ 
+#      | $$\  $ | $$ /$$__  $$  | $$ /$$| $$      | $$  >$$  $$ 
+#   /$$| $$ \/  | $$|  $$$$$$$  |  $$$$/| $$      | $$ /$$/\  $$
+#  |__/|__/     |__/ \_______/   \___/  |__/      |__/|__/  \__/
+#                                                             
+#---------------------------------------------------------------------------------------------
+#
+# Colors configuration.
+#    You can ask your shell to display things in color, which gives an additional way to
+#    classify items and tell them apart. Many Linux installs come with colors already enabled 
+#    for shells, but just in case it does not, this dotfile is pretty handy.
+#
+# Source: 
+#   [Grimm-Child's .Matrix](https://github.com/Grimm-Child/.Matrix)
+# 
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
 
 # Set LS_COLORS (GNU).
 #
@@ -23,7 +46,7 @@ LS_COLORS+="or=31;01"   # Symbolic link pointing to a non-existent file
 
 export LS_COLORS
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#---------------------------------------------------------------------------------------------
 
 # Enable color support.
 
