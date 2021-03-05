@@ -1,3 +1,67 @@
+#---------------------------------------------------------------------------------------------
+#
+#       /$$      /$$             /$$               /$$          
+#      | $$$    /$$$            | $$              |__/          
+#      | $$$$  /$$$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$ /$$   /$$
+#      | $$ $$/$$ $$ |____  $$|_  $$_/   /$$__  $$| $$|  $$ /$$/
+#      | $$  $$$| $$  /$$$$$$$  | $$    | $$  \__/| $$ \  $$$$/ 
+#      | $$\  $ | $$ /$$__  $$  | $$ /$$| $$      | $$  >$$  $$ 
+#   /$$| $$ \/  | $$|  $$$$$$$  |  $$$$/| $$      | $$ /$$/\  $$
+#  |__/|__/     |__/ \_______/   \___/  |__/      |__/|__/  \__/
+#                                                             
+#---------------------------------------------------------------------------------------------
+#
+# Bash env configuration.
+#   The bash environment is read every time a shell is started. Interactive login shells
+#   read from `~/.bash_profile` or `~/.profile`, while interactive non-login shells read from
+#   `~/.bashrc`. Noninteractive shells inherit the environment of the shell that spawned
+#   them. In general, variables are stored as follows:
+#   Global aliases and functions - `/etc/bashrc`
+#   Personal aliases and functions - `~/.bashrc`
+#   Personal environment variables and startup programs - `~/bash_profile`
+#   This env file attempts to make porting a modified environment easier.
+#
+# Source: 
+#   [Grimm-Child's .Matrix](https://github.com/Grimm-Child/.Matrix)
+# 
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
+
+# Set the initial path
+export PATH=/bin:/usr/bin
+
+if [ $EUID -eq 0 ] ; then
+        pathappend /sbin:/usr/sbin
+        unset HISTFILE
+fi
+
+# Setup some environment variables.
+export HISTSIZE=10000
+export HISTIGNORE="&:[bf]g:exit"
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Setup for /bin/ls and /bin/grep to support color, the alias is in ~/.Matrix/.dotfiles/aliases.
+if [ -f "~/.Matrix/.dotfiles/dircolors" ] ; then
+        eval $(dircolors -b ~/.Matrix/.dotfiles/dircolors)
+fi
+
+if [ -f "$HOME/.dircolors" ] ; then
+        eval $(dircolors -b $HOME/.dircolors)
+fi
+
+# By default, the umask should be set.
+if [ "$(id -gn)" = "$(id -un)" -a $EUID -gt 99 ] ; then
+  umask 002
+else
+	umask 022
+	AUTO_UMASK=yes
+fi
+
+
 # Case-insensitive globbing (used in pathname expansion)
 
 shopt -s nocaseglob
@@ -8,9 +72,7 @@ if [ ${BASH_VERSINFO[0]} -ge 4 ]; then
   shopt -s globstar
 fi
 
-# Append to the Bash history file, rather than overwriting it
 
-shopt -s histappend
 
 # Autocorrect typos in path names when using `cd`
 
