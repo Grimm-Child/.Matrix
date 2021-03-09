@@ -1,3 +1,28 @@
+#---------------------------------------------------------------------------------------------
+#
+#       /$$      /$$             /$$               /$$          
+#      | $$$    /$$$            | $$              |__/          
+#      | $$$$  /$$$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$ /$$   /$$
+#      | $$ $$/$$ $$ |____  $$|_  $$_/   /$$__  $$| $$|  $$ /$$/
+#      | $$  $$$| $$  /$$$$$$$  | $$    | $$  \__/| $$ \  $$$$/ 
+#      | $$\  $ | $$ /$$__  $$  | $$ /$$| $$      | $$  >$$  $$ 
+#   /$$| $$ \/  | $$|  $$$$$$$  |  $$$$/| $$      | $$ /$$/\  $$
+#  |__/|__/     |__/ \_______/   \___/  |__/      |__/|__/  \__/
+#                                                             
+#---------------------------------------------------------------------------------------------
+#
+# Path configuration.
+#   All $PATH modifications have been moved to their own file in an attempt to clean things
+#   up in files such as ~/.bashrc.
+#
+# Source: 
+#   [Grimm-Child's .Matrix](https://github.com/Grimm-Child/.Matrix)
+# 
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
+
 # Start with system path
 # Retrieve it from getconf, otherwise it's just current $PATH
 
