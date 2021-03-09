@@ -1,3 +1,29 @@
+#---------------------------------------------------------------------------------------------
+#
+#       /$$      /$$             /$$               /$$          
+#      | $$$    /$$$            | $$              |__/          
+#      | $$$$  /$$$$  /$$$$$$  /$$$$$$    /$$$$$$  /$$ /$$   /$$
+#      | $$ $$/$$ $$ |____  $$|_  $$_/   /$$__  $$| $$|  $$ /$$/
+#      | $$  $$$| $$  /$$$$$$$  | $$    | $$  \__/| $$ \  $$$$/ 
+#      | $$\  $ | $$ /$$__  $$  | $$ /$$| $$      | $$  >$$  $$ 
+#   /$$| $$ \/  | $$|  $$$$$$$  |  $$$$/| $$      | $$ /$$/\  $$
+#  |__/|__/     |__/ \_______/   \___/  |__/      |__/|__/  \__/
+#                                                             
+#---------------------------------------------------------------------------------------------
+#
+# NVM configuration.
+#   NVM stands for Node.js Version Manager. The nvm command is a POSIX-compliant bash script 
+#   that makes it easier to manage multiple Node.js versions on a single environment. To use 
+#   it, you need to first install the bash script, and add it to your shell's $PATH.
+#
+# Source: 
+#   [Grimm-Child's .Matrix](https://github.com/Grimm-Child/.Matrix)
+# 
+# Authors:
+#   Cyriina Grimm <xxgrimmchildxx@gmail.com>
+#
+#---------------------------------------------------------------------------------------------
+
 if ! [[ -d "$HOME/.nvm" ]]; then
   git clone https://github.com/creationix/nvm.git ~/.nvm
   install_default_node=true
