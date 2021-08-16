@@ -22,7 +22,7 @@ symlinks = aliases \
            exports \
            gitconfig \
            gitignore \
-		   npmrc \
+           npmrc \
            nvm \
            path \
            profile \
@@ -135,7 +135,7 @@ set_up_fun: ## Installs unnecessary things for my amusement
 	@sleep 1
 
 set_up_services: ## Sets services like Docker and Postgres to start automatically
-        @echo "${BLUE}Setting services to auto-start 💻...${RESET}"
+	@echo "${BLUE}Setting services to auto-start 💻...${RESET}"
 	@sleep 1
 	cp ./wsl/scripts/start_services.sh ~/.local/bin
 	chmod +x ~/.local/bin/start_services.sh
