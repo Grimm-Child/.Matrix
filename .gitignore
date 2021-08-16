@@ -21,3 +21,11 @@ env/
 .env
 local/
 local.py
+
+# Personal
+.dotfiles/
+.fonts/
+node_modules/
+curl_headers.txt
+curl_trace.txt
+yarn.lock

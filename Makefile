@@ -22,7 +22,7 @@ symlinks = aliases \
            exports \
            gitconfig \
            gitignore \
-		   npmrc \
+           npmrc \
            nvm \
            path \
            profile \
@@ -135,10 +135,11 @@ set_up_fun: ## Installs unnecessary things for my amusement
 	@sleep 1
 
 set_up_services: ## Sets services like Docker and Postgres to start automatically
-        @echo "${BLUE}Setting services to auto-start 💻...${RESET}"
+	@echo "${BLUE}Setting services to auto-start 💻...${RESET}"
 	@sleep 1
-	cp ./wsl/scripts/start_services.sh ~/.local/bin
-	chmod +x ~/.local/bin/start_services.sh
+	mkdir -p ${HOME}/.local
+	cp ./wsl/scripts/start_services.sh ${HOME}/.local/bin
+	. ${HOME}/.local/bin/start_services
 	@echo "${BLUE}Script has been placed. Please run 'sudo visudo' and add '<username> ALL=(root) NOPASSWD: /home/<username>/.local/bin/start_services.sh' to the bottom....${RESET}"
 	@echo "${BLUE}Consult the 'read_me' file for the finishing steps on Windows... 💻...${RESET}"
 
@@ -312,21 +313,21 @@ npm_packages: npm_nvm ## Installs NVM, if necessary, then installs packages
 npm_node: ## Install node packages
 	@echo "${BLUE}Installing 🧶 Yarn...${RESET}"
 	@sleep 1
-	sudo apt-get install -y yarn
+	npm install --global yarn
 	@echo "${BLUE}Creating 🧶 modules directory...${RESET}"
 	@sleep 1
 	mkdir -p ${HOME}/.node_modules
 	@echo "${BLUE}Installing 🧶 modules...${RESET}"
 	@sleep 1
 	$ yarn global add babel-eslint
-	$ yarn global add bash-language-server
+	$ npm i -g bash-language-server
 	$ yarn global add cloc
 	$ yarn global add create-component-app
 	$ yarn global add dockerfile-language-server-nodejs
 	$ yarn global add esbuild-linux-64
 	$ yarn global add eslint
 	$ yarn global add eslint-cli
-	$ yarn global add expo-cli
+	$ npm i -g expo-cli
 	$ yarn global add firebase-tools
 	$ yarn global add fx
 	$ yarn global add gulp

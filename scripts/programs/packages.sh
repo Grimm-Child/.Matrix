@@ -9,6 +9,8 @@ export NVM_DIR="$HOME/.nvm" && (
 
 source ~/.bashrc
 
+export NVM_DIR="$HOME/.nvm"
+
 nvm install node
 nvm install-latest-npm
 

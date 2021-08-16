@@ -2,7 +2,7 @@
 
 # This script will install the Node programming language
 
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs build-essential
 
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -

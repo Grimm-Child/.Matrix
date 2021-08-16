@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # This file runs every time you open a new terminal window.
 
 # Limit number of lines and entries in the history. HISTFILESIZE controls the

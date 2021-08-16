@@ -1,16 +1,16 @@
 #!/bin/bash
-
+#
 # Install script for apt packages on a fresh Ubuntu set-up.
 # Note to self - Don't forget to run the following commands:
 # $ chmod +x apt-install.sh
 # $ ./apt-install.sh
-
+#
 # Copy dotfiles
-./symlink.sh
-
+. symlink.sh
+#
 # Update Ubuntu to start with...
 sudo apt update && sudo apt full-upgrade -y
-
+#
 function install {
   which $1 &> /dev/null
 
@@ -21,7 +21,7 @@ function install {
     echo "Already installed: ${1}"
   fi
 }
-
+#
 # Basics
 install autoconf
 install automake
@@ -69,7 +69,7 @@ install vim
 install wget
 install which
 install yarn
-
+#
 # Dev
 install build-essential
 install direnv
@@ -82,7 +82,7 @@ install tcl-dev
 install tk
 install tk-dev
 install xz-utils
-
+#
 # Libraries
 install libapache2-mod-wsgi
 install libbz2-dev 
@@ -100,24 +100,24 @@ install libreadline-dev
 install libsqlite3-dev 
 install libssl-dev 
 install zlib1g-dev
-
+#
 # Security
 install apt-transport-https
 install ca-certificates
 install linux-headers-generic
 install software-properties-common
-
+#
 # Fun stuff
 install figlet
 install fonts-powerline
 install lolcat
-
+#
 # Run all scripts in programs/
 for f in programs/*.sh; do bash "$f" -H; done
-
+#
 # Get all upgrades
 sudo apt upgrade -y
 sudo apt autoremove -y
-
+#
 # Fun hello
 figlet "Hello!" | lolcat

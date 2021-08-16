@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # ~/.profile: This file runs once at login.
 # It is not read by bash(1), if ~/.bash_profile or ~/.bash_login exists.
 
