@@ -138,8 +138,8 @@ set_up_services: ## Sets services like Docker and Postgres to start automaticall
 	@echo "${BLUE}Setting services to auto-start 💻...${RESET}"
 	@sleep 1
 	mkdir -p ${HOME}/.local
-	cp ./wsl/scripts/start_services.sh ${HOME}/.local/bin
-	. ${HOME}/.local/bin/start_services
+	cp ./wsl/scripts/start_services.sh ${HOME}/.local
+	chmod +x ${HOME}/.local/bin/start_services.sh
 	@echo "${BLUE}Script has been placed. Please run 'sudo visudo' and add '<username> ALL=(root) NOPASSWD: /home/<username>/.local/bin/start_services.sh' to the bottom....${RESET}"
 	@echo "${BLUE}Consult the 'read_me' file for the finishing steps on Windows... 💻...${RESET}"
 
